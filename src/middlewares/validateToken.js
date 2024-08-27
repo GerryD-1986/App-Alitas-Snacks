@@ -7,7 +7,7 @@ export const authRequired = (req, res, next) =>{
   if(!token)return res.status(401).json({message: "NO hay token, sin acceso"});
   jwt.verify(token, TOKEN_SECRET, (err, user)=>{
     if(err) return res.status(403).json({message: "token invalido"});
-    req.user = user;
+    req.user = user
     next();
   })
 

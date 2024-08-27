@@ -76,7 +76,7 @@ export const profile = async (req,res) =>{
     const userFound = await Usuario.findById(req.user.id);
 
     if(!userFound)return res.status(400).json({message: "Usuario no encontrado"});
-
+   
     return res.json({
         id: userFound._id,
         username: userFound.username,
