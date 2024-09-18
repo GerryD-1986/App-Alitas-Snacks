@@ -11,6 +11,14 @@ middlewares -> decidir que rutas estan protegidas para los autenticados, se crea
 schemas -> se utiliza para poder hacer uso de la libreria zod
 libs -> escribir codigo para reinportar varias veces
 
+<<<<<<< HEAD
 second commit:
 se agregan archivos y rutas para agregar items con cuentas activas dentro de mongo db, los items solo los pueden agregar "por el momento" los managers de las diferentes sucursales, estos ya deben tener sus credenciales de autenticacion.
 
+=======
+editado 17/09/2024
+se realizan cambios en nombres de variables para mayor entendimiento en la parte de routeo y funciones backen disponibles, se ingresa 
+cors a paqueteria junto con proxi enlazado ya al front
+NOTA: si en su caso les aparace el puerto diferente al que ustedes tienen en el back, pueden cambiar el puerto en el visual=> seccion= ports
+la aplicacion ya puede registrar y loguear con el front, pero no estan validados aun la parte de paginas protegidas
+>>>>>>> 4ccc25fdfb0fa81b4a825a742c0811232ddf55a6
