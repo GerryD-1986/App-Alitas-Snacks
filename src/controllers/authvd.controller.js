@@ -1,4 +1,4 @@
-import Supervisor from "../models/manager.model.js"
+import Supervisor from "../models/vendor.model.js"
 import bcrypt from "bcryptjs"
 import { createAccessToken } from "../libs/jwt.js"
 
@@ -9,24 +9,24 @@ export const register =  async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10)//guardar variable de encriptado de contraseña
 
 
-        const newManager = new Supervisor({
+        const newVendor = new Vendedor({
             username,
             email,
             password: passwordHash,
         });
     
         //guardar usuario en mondodb
-         const managerSaved = await newManager.save(); //guardas el usuario
-         const token = await createAccessToken({id:managerSaved._id}); //creas el token
+         const vendorSaved = await newVendor.save(); //guardas el usuario
+         const token = await createAccessToken({id:vendorSaved._id}); //creas el token
           
          res.cookie("token", token); //estableces una cookie en la respuesta
          //envias respuesta
          res.json({
-            id: managerSaved._id,
-            username: managerSaved.username,
-            email: managerSaved.email,
-            createdAt: managerSaved.createdAt,
-            updatedAt: managerSaved.updatedAt,
+            id: vendorSaved,      
+            username: vendorSaved.username,
+            email: vendorSaved.email,
+            createdAt: vendorSaved.createdAt,
+            updatedAt: vendorSaved.updatedAt,
          });
         }catch(error){
         res.status(500).json({ message: error.message });
@@ -40,25 +40,25 @@ export const login =  async (req, res) => {
     try{
 
         //buscar el usuario si existe
-        const managerFound = await Supervisor.findOne({ email });
+        const vendorFound = await Vendedor.findOne({ email });
 
         //si no se encuentra el usuario que me mande el status
-        if(!managerFound)return res.status(400).json({message: "Usuario no encontrado"});
+        if(!vendorFound)return res.status(400).json({message: "Usuario no encontrado"});
 
         //variable de coincidencia
-        const isMatch = await bcrypt.compare(password, managerFound.password)
+        const isMatch = await bcrypt.compare(password, vendorFound.password)
          if(!isMatch)return res.status(400).json( {message: "Contraseña incorrecta"});
 
-         const token = await createAccessToken({id:managerFound._id}); 
+         const token = await createAccessToken({id:vendorFound._id}); 
           
          res.cookie("token", token); //estableces una cookie en la respuesta
          //envias respuesta
          res.json({
-            id: managerFound._id,
-            username: managerFound.username,
-            email: managerFound.email,
-            createdAt: managerFound.createdAt,
-            updatedAt: managerFound.updatedAt,
+            id: vendorFound._id,
+            username: vendorFound.username,
+            email: vendorFound.email,
+            createdAt: vendorFound.createdAt,
+            updatedAt: vendorFound.updatedAt,
          });
         }catch(error){
         res.status(500).json({ message: error.message });
@@ -73,16 +73,16 @@ export const logout = (req, res) =>{
 };
 
 export const profile = async (req,res) =>{
-    const managerFound = await Supervisor.findById(req.user.id);
+    const vendorFound = await Vendedor.findById(req.user.id);
 
-    if(!managerFound)return res.status(400).json({message: "Usuario no encontrado"});
+    if(!vendorFound)return res.status(400).json({message: "Usuario no encontrado"});
 
     return res.json({
-        id: managerFound._id,
-        username: managerFound.username,
-        email: managerFound.email,
-        createdAt: managerFound.createdAt,
-        updatedAt: managerFound.updatedAt,
+        id: vendorFound._id,
+        username: vendorFound.username,
+        email: vendorFound.email,
+        createdAt: vendorFound.createdAt,
+        updatedAt: vendorFound.updatedAt,
     })
 
     res.send("profile");

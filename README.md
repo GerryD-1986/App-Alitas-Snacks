@@ -11,3 +11,6 @@ middlewares -> decidir que rutas estan protegidas para los autenticados, se crea
 schemas -> se utiliza para poder hacer uso de la libreria zod
 libs -> escribir codigo para reinportar varias veces
 
+second commit:
+se agregan archivos y rutas para agregar items con cuentas activas dentro de mongo db, los items solo los pueden agregar "por el momento" los managers de las diferentes sucursales, estos ya deben tener sus credenciales de autenticacion.
+

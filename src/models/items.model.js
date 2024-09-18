@@ -17,7 +17,6 @@ const itemSchema = new mongoose.Schema({
     },
     image:{
       data: Buffer,
-      contentType: String,
     },
     category:{
         type: String,
@@ -29,8 +28,8 @@ const itemSchema = new mongoose.Schema({
     }, 
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Supervisor',
-        required: true
+        ref: "Supervisor",
+        required: true,
     }
 },{
     timestamps: true

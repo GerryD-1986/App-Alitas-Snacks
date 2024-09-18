@@ -5,7 +5,7 @@ import { get } from "mongoose";
 
 const router = Router()
 
-router.get("/items", authRequired, getItems)
+router.get("/items", authRequired  , getItems)
 router.get("/items/:id", authRequired,getItem)
 router.post("/items", authRequired,createItems)
 router.delete("/items/:id", authRequired, deleteItem)

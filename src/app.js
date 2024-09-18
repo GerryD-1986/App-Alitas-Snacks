@@ -4,14 +4,20 @@ import express from "express"
 import morgan from "morgan"
 //express de los cookies, sirve para leer cualquier cookie
 import cookieParser from "cookie-parser";
+//importar cors , paquetes para autorizar conexiones de diferentes proxies
+import cors from "cors";
 //importar auth.routes
 import authRoutes from "./routes/auth.routes.js";
 import adminRoutes from "./routes/authad.routes.js";
-import managerRoutes from "./routes/authmg.routes.js"
+import vendorRoutes from "./routes/authvd.routes.js"
 import itemRoutes from "./routes/items.routes.js";
 
 const app = express()
 
+
+app.use(cors({
+    origin: "http://127.0.0.1:5173",
+}));
 //muestra mensaje por consola por cada peticion al backend
 app.use(morgan("dev"));
 //interpretar el request body con formato JSON
@@ -21,7 +27,7 @@ app.use(cookieParser())
 //aplicacion quiero que utilices authRoutes
 app.use("/api",authRoutes);
 app.use("/api",adminRoutes);
-app.use("/api", managerRoutes);
+app.use("/api", vendorRoutes);
 // tambien la ruta de los items
 app.use("/api",itemRoutes);
 

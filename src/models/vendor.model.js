@@ -20,4 +20,4 @@ const managSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model("Supervisor", managSchema);
+export default mongoose.model("Vendedor", managSchema);

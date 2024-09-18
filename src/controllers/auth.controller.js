@@ -3,9 +3,12 @@ import bcrypt from "bcryptjs"
 import {createAccessToken} from "../libs/jwt.js"
 
 export const register =  async (req, res) => {
-    const {email,password,username} = req.body;
+    const {email,password,username, address, phone} = req.body;
 
     try{
+const userFound = await Usuario.findOne({email})
+if (userFound) return res.status(400).json(["El correo ya está en uso"])
+
         const passwordHash = await bcrypt.hash(password, 10)//guardar variable de encriptado de contraseña
 
 
@@ -13,6 +16,8 @@ export const register =  async (req, res) => {
             username,
             email,
             password: passwordHash,
+            address,
+            phone,
         });
     
         //guardar usuario en mondodb
@@ -25,6 +30,8 @@ export const register =  async (req, res) => {
             id: userSaved._id,
             username: userSaved.username,
             email: userSaved.email,
+            address: userSaved.address,
+            phone: userSaved.phone,
             createdAt: userSaved.createdAt,
             updatedAt: userSaved.updatedAt,
          });
