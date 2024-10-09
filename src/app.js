@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.routes.js";
 import adminRoutes from "./routes/authad.routes.js";
 import vendorRoutes from "./routes/authvd.routes.js"
 import itemRoutes from "./routes/items.routes.js";
+import insumosRouter from "./routes/insumos.routes.js" //insumos
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(cors({
 //muestra mensaje por consola por cada peticion al backend
 app.use(morgan("dev"));
 //interpretar el request body con formato JSON
+
 app.use(express.json());
 app.use(cookieParser())
 
@@ -30,5 +32,8 @@ app.use("/api",adminRoutes);
 app.use("/api", vendorRoutes);
 // tambien la ruta de los items
 app.use("/api",itemRoutes);
+
+//Ruta de los insumos
+app.use("/api",insumosRouter);
 
 export default app;
