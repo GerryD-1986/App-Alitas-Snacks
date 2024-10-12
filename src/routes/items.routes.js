@@ -5,11 +5,11 @@ import { get } from "mongoose";
 
 const router = Router()
 
-router.get("/items", authRequired  , getItems)
-router.get("/items/:id", authRequired,getItem)
-router.post("/items", authRequired,createItems)
-router.delete("/items/:id", authRequired, deleteItem)
-router.put("/items/:id", authRequired, updateItems)
+router.get("/items",getItems)
+router.get("/items/:id",getItem)
+router.post("/items", createItems)
+router.delete("/items/:id",deleteItem)
+router.put("/items/:id", updateItems)
 
 
 export default router;

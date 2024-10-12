@@ -1,10 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const productoSchema = new mongoose.Schema({
+const insumosSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
     unidadesDisponibles: { type: Number, required: true },
     inventario: { type: Number, required: true }, 
     disponible: { type: Boolean, default: true }, 
 });
 
-module.exports = mongoose.model('Producto', productoSchema);
+// Exporta el modelo como una exportación por defecto
+const Insumos = mongoose.model('insumos', insumosSchema);
+
+export default Insumos;

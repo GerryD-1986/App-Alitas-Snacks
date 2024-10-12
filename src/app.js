@@ -11,13 +11,13 @@ import authRoutes from "./routes/auth.routes.js";
 import adminRoutes from "./routes/authad.routes.js";
 import vendorRoutes from "./routes/authvd.routes.js"
 import itemRoutes from "./routes/items.routes.js";
-import insumosRouter from "./routes/insumos.routes.js" //insumos
+import insumosRoutes from "./routes/insumos.routes.js" //insumos
 
 const app = express()
 
 
 app.use(cors({
-    origin: "http://127.0.0.1:5173",
+    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
 }));
 //muestra mensaje por consola por cada peticion al backend
 app.use(morgan("dev"));
@@ -34,6 +34,6 @@ app.use("/api", vendorRoutes);
 app.use("/api",itemRoutes);
 
 //Ruta de los insumos
-app.use("/api",insumosRouter);
+app.use("/api",insumosRoutes);
 
 export default app;
