@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.routes.js";
 import adminRoutes from "./routes/authad.routes.js";
 import vendorRoutes from "./routes/authvd.routes.js"
 import itemRoutes from "./routes/items.routes.js";
+import insumosRoutes from "./routes/insumos.routes.js" //insumos
 
 const app = express()
 
@@ -30,5 +31,5 @@ app.use("/api",adminRoutes);
 app.use("/api", vendorRoutes);
 // tambien la ruta de los items
 app.use("/api",itemRoutes);
-
+app.use("/api",insumosRoutes);
 export default app;
