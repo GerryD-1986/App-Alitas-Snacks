@@ -1,12 +1,6 @@
 import Productos from "../models/items.model.js";
 
-//obtener items
-/*export const getItems = async (req, res) => {
-  const items = await Productos.find({
-    user: req.user.id
-  }).populate('user');
-  res.json(items);
-};*/
+
 
 //obtener todos los items (Nat)
 export const getListItems = async (req, res) => {
@@ -18,29 +12,13 @@ export const getListItems = async (req, res) => {
   }
 }
 
-/*//crear items
-export const createItems = async (req, res) => {
-const {product, description, price, category, date } = req.body;
-
-console.log(req.user)
-
-const newitem = new Productos({
-    product,
-    description,
-    price,
-    category,
-    date,
-    user: req.user.id,
-});
-const savedItem = await newitem.save();
-res.json(savedItem);
-}*/
 
 //crear item Nat
 export const createItem = async (req, res) =>{
+  console.log('Datos recibidos:', req.body);
   try{
-    const { item, subsidiary, photo, price, discount, description, category, date } = req.body;
-    if (!item || !subsidiary || !price || !description || !category) {
+    const { item, subsidiary, photo, price, discount, description, category, timecook, date } = req.body;
+    if (!item || !price || !description || !category || !timecook ) {
       return res.status(400).json({ message: "Por favor, completa todos los campos obligatorios" });
     }
     const newItem = new Productos({
@@ -51,6 +29,7 @@ export const createItem = async (req, res) =>{
       discount,
       description,
       category,
+      timecook,
       date,
     });
     const saveItem = await newItem.save();

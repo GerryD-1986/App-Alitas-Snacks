@@ -1,6 +1,8 @@
 import Usuario from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import {createAccessToken} from "../libs/jwt.js"
+import jwt from "jsonwebtoken"
+import {TOKEN_SECRET} from "../secret.js"
 
 export const register =  async (req, res) => {
     const {email,password,username, address, phone} = req.body;
@@ -23,7 +25,7 @@ if (userFound) return res.status(400).json(["El correo ya está en uso"])
         //guardar usuario en mondodb
          const userSaved = await newUser.save(); //guardas el usuario
          const token = await createAccessToken({id:userSaved._id}); //creas el token
-          
+         
          res.cookie("token", token); //estableces una cookie en la respuesta
          //envias respuesta
          res.json({
@@ -56,9 +58,15 @@ export const login =  async (req, res) => {
         const isMatch = await bcrypt.compare(password, userFound.password)
          if(!isMatch)return res.status(400).json( {message: "Contraseña incorrecta"});
 
-         const token = await createAccessToken({id:userFound._id}); 
+         const token = await createAccessToken({id: userFound._id}); 
+         
           
-         res.cookie("token", token); //estableces una cookie en la respuesta
+         res.cookie("token", token, {
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true,
+            maxAge: 1000 *60 *60 //valido a una hora
+         }); //estableces una cookie en la respuesta
          //envias respuesta
          res.json({
             id: userFound._id,
@@ -93,4 +101,25 @@ export const profile = async (req,res) =>{
     })
 
     res.send("profile");
+}
+
+
+export const verifyToken = async (req, res) =>{
+   const {token} = req.cookies
+
+   if(!token) return res.status(401).json({message: "No autorizado"});
+
+   jwt.verify(token, TOKEN_SECRET,  async (err, user) => {
+    if(err) return res.status(401).json({message: "No autorizado"});
+
+    const userFound = await Usuario.findById(user.id)
+    if(!userFound) return res.status(401).json({message: "No autorizado"});
+
+    return res.json({
+        id: userFound,
+        username: userFound.username,
+        email: userFound.email,
+    })
+   })
+
 }

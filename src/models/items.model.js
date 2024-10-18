@@ -12,7 +12,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
         minLength: 3,
         maxLenght:150,
-        required: true,
+        required: false,
    },
    photo:{
      type: String,
@@ -32,6 +32,10 @@ const itemSchema = new mongoose.Schema({
     },
     category:{
         type: String,
+        required: true,
+    },
+    timecook:{
+        type: Number,
         required: true,
     },
     date: {
