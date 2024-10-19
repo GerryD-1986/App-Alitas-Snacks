@@ -27,6 +27,11 @@ export const patchInsumo = async (req, res) => {
     try {
         const { id } = req.params;
         const insumoActualizado = await Insumos.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!insumoActualizado) {
+            return res.status(404).json({ message: 'Insumo no encontrado' });
+        }
+
         res.json({
             success: true,
             message: 'Insumo actualizado correctamente',
