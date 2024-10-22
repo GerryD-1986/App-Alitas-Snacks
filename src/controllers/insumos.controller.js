@@ -23,7 +23,7 @@ export const postInsumos = async (req, res) => {
 };
 
 // Ruta para editar un Insumo por ID
-export const patchInsumo = async (req, res) => {
+export const putInsumo = async (req, res) => {
     try {
         const { id } = req.params;
         const insumoActualizado = await Insumos.findByIdAndUpdate(id, req.body, { new: true });

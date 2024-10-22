@@ -1,5 +1,5 @@
 import express from "express";
-import { getInsumos, postInsumos, patchInsumo, deleteInsumo } from "../controllers/insumos.controller.js";
+import { getInsumos, postInsumos, putInsumo, deleteInsumo } from "../controllers/insumos.controller.js";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.get('/insumos', getInsumos);
 router.post('/insumos', postInsumos);
 
 // Ruta para actualizar un insumo por ID
-router.patch('/insumos/:id', patchInsumo);
+router.put('/insumos/:id', putInsumo);
 
 // Ruta para eliminar un insumo por ID
 router.delete('/insumos/:id', deleteInsumo);
