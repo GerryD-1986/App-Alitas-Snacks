@@ -12,6 +12,7 @@ export const getInsumos = async (req, res) => {
 
 // Ruta para crear un nuevo Insumos
 export const postInsumos = async (req, res) => {
+    console.log('cuerpo de la solicitud:', req.body);
     try {
         const { nombre, unidadesDisponibles, inventario, disponible } = req.body;
         const nuevoInsumos = new Insumos({ nombre, unidadesDisponibles, inventario, disponible });
