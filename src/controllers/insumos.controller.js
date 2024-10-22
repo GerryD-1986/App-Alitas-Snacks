@@ -26,3 +26,38 @@ export const postInsumos = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+// Ruta para editar un Insumo por ID
+export const patchInsumo = async (req, res) => {
+    try {
+
+        const insumoActualizado = await Insumos.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json({
+            success: true,
+            message: 'Insumo actualizado correctamente',
+            data: insumoActualizado
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error al actualizar el insumo',
+            error: error.message
+        });
+    }
+};
+
+// Ruta para eliminar un insumo por ID
+export const deleteInsumo = async (req, res) => {
+    const { id } = req.params; // Obtener ID de la ruta
+
+    try {
+        const deletedInsumo = await Insumos.findByIdAndDelete(id);
+        if (!deletedInsumo) {
+            return res.status(404).json({ message: 'Insumo no encontrado' });
+        }
+        res.status(200).json({ message: 'Insumo eliminado con éxito' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
