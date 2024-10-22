@@ -6,9 +6,7 @@ export function createAccessToken(payload){
     jkw.sign(
         payload,
         TOKEN_SECRET,
-        {
-    expiresIn: "1d", //expiracion del token
-    },
+        {expiresIn: "1h"},//expiracion del token a una hora
     (err, token)=> {
     if(err)reject(err);//si hay error muestrame el error, si no muestrame el token
     resolve(token)

@@ -1,26 +1,42 @@
 import { MongoOIDCError } from "mongodb";
 import mongoose from "mongoose"
 
-
 const itemSchema = new mongoose.Schema({
-    product: {
+    item: {
         type: String,
         required: true,
+        minLength: 3,
+        maxLenght:150,
     },
+    subsidiary:{
+        type: String,
+        minLength: 3,
+        maxLenght:150,
+        required: false,
+   },
+   photo:{
+     type: String,
+     required:false,
+   },
+   price:{
+       type: Number,
+       required: true,
+   },
+   discount:{
+    type: Number,
+    required: false,
+   },
     description:{
          type: String,
          required: true,
     },
-    price:{
-        type: Number,
-        required: true,
-    },
-    image:{
-      data: Buffer,
-    },
     category:{
         type: String,
-        required: false,
+        required: true,
+    },
+    timecook:{
+        type: Number,
+        required: true,
     },
     date: {
         type: Date,
@@ -28,11 +44,11 @@ const itemSchema = new mongoose.Schema({
     }, 
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Supervisor",
-        required: true,
+        ref: "Administrador",
     }
 },{
     timestamps: true
 });
 
 export default mongoose.model("Productos", itemSchema);
+

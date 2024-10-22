@@ -1,5 +1,7 @@
 import Insumos from '../models/insumos.model.js';
 
+
+
 // Ruta para obtener todos los Insumos
 export const getInsumos = async (req, res) => {
     try {
@@ -12,10 +14,12 @@ export const getInsumos = async (req, res) => {
 
 // Ruta para crear un nuevo Insumos
 export const postInsumos = async (req, res) => {
-    console.log('cuerpo de la solicitud:', req.body);
+  
+
     try {
         const { nombre, unidadesDisponibles, inventario, disponible } = req.body;
         const nuevoInsumos = new Insumos({ nombre, unidadesDisponibles, inventario, disponible });
+        
         const newProduct = await nuevoInsumos.save();
         res.status(201).json(newProduct);
     } catch (error) {
@@ -24,15 +28,10 @@ export const postInsumos = async (req, res) => {
 };
 
 // Ruta para editar un Insumo por ID
-export const putInsumo = async (req, res) => {
+export const patchInsumo = async (req, res) => {
     try {
-        const { id } = req.params;
-        const insumoActualizado = await Insumos.findByIdAndUpdate(id, req.body, { new: true });
 
-        if (!insumoActualizado) {
-            return res.status(404).json({ message: 'Insumo no encontrado' });
-        }
-
+        const insumoActualizado = await Insumos.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json({
             success: true,
             message: 'Insumo actualizado correctamente',

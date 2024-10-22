@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: Number,
     },
+    roles:['user','admin','vendor'],
 },{
     timestamps: true
 })
