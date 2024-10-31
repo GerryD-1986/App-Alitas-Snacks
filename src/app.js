@@ -13,6 +13,8 @@ import itemRoutes from "./routes/items.routes.js";
 import insumosRoutes from "./routes/insumos.routes.js" //insumos
 
 
+import paymentRoutes from "./routes/payment.routes.js"; // Nueva ruta para pagos
+
 const app = express()
 
 
@@ -36,4 +38,6 @@ app.use("/api",itemRoutes);
 //Ruta de los insumos
 app.use("/api",insumosRoutes);
 app.use("/api",insumosRoutes);
+app.use("/api", paymentRoutes);
+
 export default app;
